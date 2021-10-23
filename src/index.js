@@ -1,7 +1,8 @@
+const express = require('express');
 const { gql, ApolloServer } = require('apollo-server');
 const cors = require('cors');
 const { Sequelize } = require('sequelize');
-const express = require('express');
+
 const app = express();
 
 app.use(cors());
@@ -12,7 +13,7 @@ app.use(
     })
 );
 
-app.get('', (req, res) => {
+app.get('/', (req, res) => {
     res.send("Bem vindo a API da wFast!");
 });
 
