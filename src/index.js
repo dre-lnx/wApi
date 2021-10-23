@@ -1,9 +1,19 @@
+const { gql, ApolloServer } = require('apollo-server');
+const cors = require('cors');
+const { Sequelize } = require('sequelize');
 const express = require('express');
-
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true
+    })
+);
+
 app.get('', (req, res) => {
-    res.send("Hello, world!");
+    res.send("Bem vindo a API da wFast!");
 });
 
 const port = 3000;
