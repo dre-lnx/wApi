@@ -5,11 +5,13 @@
   "author": "dre-lnxd <andrevlds23@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "node src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
+    "apollo-server": "^3.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "graphql": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.2",
     "nodemon": "^2.0.14",
