@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require('../../models/user');
 import { UserInputError } from "apollo-server-express";
 
 const fakeUser = [
@@ -14,6 +14,8 @@ const getAllUsers = async() => {
     const users = await User.findAll();
 
     if(!users) { return console.log("empty") };
+
+    console.log(users);
 
     return users;
 }
