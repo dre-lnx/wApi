@@ -6,6 +6,9 @@ import http from 'http';
 
 const { typeDefs } = require('./graphql/typeDefs');
 const { resolvers } = require('./graphql/resolvers');
+const { User } = require('../models/user');
+
+console.log(User);
 
 const app = express();
 

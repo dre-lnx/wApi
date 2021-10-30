@@ -1,3 +1,6 @@
+const User = require("../models/user");
+import { UserInputError } from "apollo-server-express";
+
 const fakeUser = [
     {
         name: "André",
@@ -7,10 +10,18 @@ const fakeUser = [
     }
 ];
 
+const getAllUsers = async() => {
+    const users = await User.findAll();
+
+    if(!users) { return console.log("empty") };
+
+    return users;
+}
+
 const resolvers = {
     Query: {
         getAllUsers() {
-            return fakeUser
+            return getAllUsers()
         }
     },
 };
