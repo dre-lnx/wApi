@@ -1,39 +1,35 @@
-import typeDefs from './graphql/typeDefs';
-import resolvers from './graphql/resolvers';
-
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
+import http from 'http';
 
-const { Sequelize } = require('sequelize');
+const { typeDefs } = require('./graphql/typeDefs');
+const { resolvers } = require('./graphql/resolvers');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(
-    express.urlencoded({
-        extended: true,
-    })
+  express.urlencoded({
+    extended: true,
+  })
 );
 
- const sequelize = new Sequelize("wfast", "root", "adminadmin", { dialect: "mysql" });
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
+async function startApolloServer(typeDefs, resolvers) {
+  const app = express();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
-  
-const server = new ApolloServer({ typeDefs, resolvers });
+  await server.start();
+  server.applyMiddleware({ app });
+  await new Promise(resolve => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+}
 
-const port = 3000;
-
-server.listen().then(({ url }) => {
-    console.log(`Server started at ${ url }`)
-    });
-
+startApolloServer(typeDefs, resolvers);
