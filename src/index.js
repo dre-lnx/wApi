@@ -2,9 +2,10 @@ import typeDefs from './graphql/typeDefs';
 import resolvers from './graphql/resolvers';
 
 import { ApolloServer } from 'apollo-server';
+import express from 'express';
+import cors from 'cors'
+
 const { Sequelize } = require('sequelize');
-const express = require("express");
-const cors = require("cors");
 
 const app = express();
 
