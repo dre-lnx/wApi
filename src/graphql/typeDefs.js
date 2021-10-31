@@ -88,6 +88,10 @@ const typeDefs = gql`
         updateUser(id: ID!, data: UserInput): User!
         deleteUser(id: ID!): User!
 
+        #status
+        createStatus(data: StatusInput): Status!
+        updateStatus(id: ID!, data: StatusInput): Status!
+
     }
 
 `;

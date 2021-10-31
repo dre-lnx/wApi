@@ -9,6 +9,8 @@ import { getTaskById } from "./queries/tasks";
 import { createUser } from './mutations/users';
 import { updateUser } from './mutations/users';
 import { deleteUser } from './mutations/users';
+import { createStatus } from './mutations/statuses';
+import { updateStatus } from './mutations/statuses';
 
 const resolvers = {
     Query: {
@@ -44,6 +46,9 @@ const resolvers = {
         },
     },
     Mutation: {
+
+        //User mutations
+
         createUser(_, { data }) {
             return createUser(_, { data });
         },
@@ -52,6 +57,15 @@ const resolvers = {
         },
         deleteUser(_, { id }) {
             return deleteUser(_, { id });
+        },
+
+        //Status mutations
+
+        createStatus(_, { data }) {
+            return createStatus(_, { data });
+        },
+        updateStatus(_, { id, data}) {
+            return updateStatus(_, { id, data });
         },
     }
 };
