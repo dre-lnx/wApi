@@ -1,17 +1,8 @@
-const User = require('../../models/user');
 import { UserInputError } from "apollo-server-express";
-
-const fakeUser = [
-    {
-        name: "André",
-        description: "Web Dev",
-        email: "andre@teste.com",
-        pwd: "adminadmin",
-    }
-];
+const models = require('../../models/index.js');
 
 const getAllUsers = async() => {
-    const users = await User.findAll();
+    const users = await models.User.findAll();
 
     if(!users) { return console.log("empty") };
 
@@ -20,10 +11,24 @@ const getAllUsers = async() => {
     return users;
 }
 
+const getUserById = async(_, { id }) => {
+    console.log(id);
+    const user = await models.User.findByPk(id);
+
+    if (!user) throw new UserInputError("Usuário não encontrado!");
+
+    console.log(user);
+
+    return user;
+}
+
 const resolvers = {
     Query: {
         getAllUsers() {
             return getAllUsers()
+        },
+        getUserById(_,{id}) {
+            return getUserById(_, {id});
         }
     },
 };

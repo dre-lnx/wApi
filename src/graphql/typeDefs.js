@@ -14,10 +14,18 @@ const typeDefs = gql`
 
     #inputs
 
+    input UserInput {
+        name: String!
+        description: String!
+        email: String!
+        pwd: String!
+    }
+
     #queries
 
     type Query {
         getAllUsers: [User!]!
+        getUserById(id: ID!): User
     }
 
     #mutations

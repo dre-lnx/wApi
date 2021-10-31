@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
@@ -26,8 +27,15 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageGraphQLPlayground()
+    ],
   });
+
+  app.get("/", (req, res) => {
+    res.send("Bem-vindo a API wFast");
+  })
 
   await server.start();
   server.applyMiddleware({ app });
