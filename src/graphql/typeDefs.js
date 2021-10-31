@@ -53,9 +53,9 @@ const typeDefs = gql`
     input TaskInput {
         name: String!
         description: String!
-        StatusId: ID!
-        BoardId: ID!
-        UserId: ID!
+        statusId: ID!
+        boardId: ID!
+        userId: ID!
     }
 
     #queries
@@ -91,6 +91,16 @@ const typeDefs = gql`
         #status
         createStatus(data: StatusInput): Status!
         updateStatus(id: ID!, data: StatusInput): Status!
+
+        #boards
+        createBoard(data: BoardInput): Board!
+        updateBoard(id: ID!, data: BoardInput): Board!
+        deleteBoard(id: ID!): Board!
+
+        #tasks
+        createTask(data: TaskInput): Task!
+        updateTask(id: ID!, data: TaskInput): Task!
+        deleteTask(id: ID!): Task!
 
     }
 

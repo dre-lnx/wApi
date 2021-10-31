@@ -11,6 +11,12 @@ import { updateUser } from './mutations/users';
 import { deleteUser } from './mutations/users';
 import { createStatus } from './mutations/statuses';
 import { updateStatus } from './mutations/statuses';
+import { createBoard } from './mutations/boards';
+import { updateBoard } from './mutations/boards';
+import { deleteBoard } from './mutations/boards';
+import { createTask } from './mutations/tasks';
+import { updateTask } from './mutations/tasks';
+import { deleteTask } from './mutations/tasks';
 
 const resolvers = {
     Query: {
@@ -66,6 +72,29 @@ const resolvers = {
         },
         updateStatus(_, { id, data}) {
             return updateStatus(_, { id, data });
+        },
+
+        //Board mutations
+
+        createBoard(_, { data }) {
+            return createBoard(_, { data });
+        },
+        updateBoard(_, { id, data }) {
+            return updateBoard(_, { id, data });
+        },
+        deleteBoard(_, { id }) {
+            return deleteBoard(_, { id });
+        },
+
+        //Task mutations
+        createTask(_, { data }) {
+            return createTask(_, { data });
+        },
+        updateTask(_, { id, data }) {
+            return updateTask(_, { id, data });
+        },
+        deleteTask(_, { id }) {
+            return deleteTask(_, { id });
         },
     }
 };
