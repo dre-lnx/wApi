@@ -20,7 +20,16 @@ const typeDefs = gql`
     type Board {
         id: ID!
         name: String!
-        User : User!
+        User: User!
+    }
+
+    type Task {
+        id: ID!
+        name: String!
+        description: String!
+        Status: Status!
+        Board: Board!
+        User: User!
     }
 
     #inputs
@@ -41,6 +50,14 @@ const typeDefs = gql`
         userId: ID!
     }
 
+    input TaskInput {
+        name: String!
+        description: String!
+        StatusId: ID!
+        BoardId: ID!
+        UserId: ID!
+    }
+
     #queries
 
     type Query {
@@ -56,6 +73,10 @@ const typeDefs = gql`
         #boards
         getAllBoards: [Board!]!
         getBoardById(id: ID!): Board
+
+        #tasks
+        getAllTasks: [Task!]!
+        getTaskById(id: ID!): Task
     }
 
     #mutations

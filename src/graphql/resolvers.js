@@ -1,6 +1,8 @@
 import { UserInputError } from "apollo-server-express";
 const models = require('../../models/index.js');
 
+//------------------------------Users queries
+
 const getAllUsers = async() => {
     const users = await models.User.findAll();
 
@@ -14,6 +16,8 @@ const getUserById = async(_, { id }) => {
 
     return user;
 };
+
+//------------------------------Statuses queries
 
 const getAllStatuses = async() => {
     const statuses = await models.Status.findAll();
@@ -29,25 +33,59 @@ const getStatusById = async(_, { id }) => {
     return status;
 };
 
+//------------------------------Boards queries
+
 const getAllBoards = async() => {
     const boards = await models.Board.findAll({	
-        include: [{model: models.User}]
+        include: [
+            {model: models.User}
+        ]
     });
-
-    console.log(boards);
 
     return boards;
 };
 
 const getBoardById = async(_, { id }) => {
     const board = await models.Board.findByPk(id, {
-        include: [{model: models.User}]
+        include: [
+            {model: models.User}
+        ]
     });
 
     if (!board) throw new UserInputError("Status não encontrado!");
 
     return board;
 }
+
+//------------------------------Tasks queries
+
+const getAllTasks = async() => {
+    const tasks = await models.Task.findAll({
+        include: [
+            {model: models.Status},
+            {model: models.Board},
+            {model: models.User},
+        ]
+    });
+
+    return tasks;
+}
+
+const getTaskById = async(_, { id }) => {
+    const task = await models.Task.findByPk(id, {
+        include: [
+            {model: models.Status},
+            {model: models.Board},
+            {model: models.User},
+        ]
+    });
+
+    if (!task) throw new UserInputError("Status não encontrado!");
+
+    return task;
+}
+
+
 
 
 
@@ -70,6 +108,12 @@ const resolvers = {
         },
         getBoardById(_, { id }) {
             return getBoardById(_, { id });
+        },
+        getAllTasks() {
+            return getAllTasks();
+        },
+        getTaskById(_, { id }) {
+            return getTaskById(_, { id });
         },
     },
 };
