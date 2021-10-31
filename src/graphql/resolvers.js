@@ -4,32 +4,47 @@ const models = require('../../models/index.js');
 const getAllUsers = async() => {
     const users = await models.User.findAll();
 
-    if(!users) { return console.log("empty") };
-
-    console.log(users);
-
     return users;
 }
 
 const getUserById = async(_, { id }) => {
-    console.log(id);
     const user = await models.User.findByPk(id);
 
     if (!user) throw new UserInputError("Usuário não encontrado!");
 
-    console.log(user);
-
     return user;
 }
+
+const getAllStatuses = async() => {
+    const statuses = await models.Status.findAll();
+
+    return statuses
+}
+
+const getStatusById = async(_, { id }) => {
+    const status = await models.Status.findByPk(id);
+
+    if (!status) throw new UserInputError("Status não encontrado!");
+
+    return status;
+}
+
+
 
 const resolvers = {
     Query: {
         getAllUsers() {
-            return getAllUsers()
+            return getAllUsers();
         },
         getUserById(_,{id}) {
             return getUserById(_, {id});
-        }
+        },
+        getAllStatuses() {
+            return getAllStatuses();
+        },
+        getStatusById(_, { id }) {
+            return getStatusById(_, { id });
+        },
     },
 };
 

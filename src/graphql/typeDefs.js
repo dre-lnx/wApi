@@ -12,6 +12,11 @@ const typeDefs = gql`
         pwd: String!
     }
 
+    type Status {
+        id: ID!
+        name: String!
+    }
+
     #inputs
 
     input UserInput {
@@ -21,11 +26,21 @@ const typeDefs = gql`
         pwd: String!
     }
 
+    input StatusInput {
+        name: String!
+    }
+
     #queries
 
     type Query {
+
+        #users
         getAllUsers: [User!]!
         getUserById(id: ID!): User
+
+        #statuses
+        getAllStatuses: [Status!]!
+        getStatusById(id: ID!): Status
     }
 
     #mutations
