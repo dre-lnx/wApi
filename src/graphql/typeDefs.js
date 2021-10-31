@@ -81,6 +81,15 @@ const typeDefs = gql`
 
     #mutations
 
+    type Mutation {
+
+        #users
+        createUser(data: UserInput): User!
+        updateUser(id: ID!, data: UserInput): User!
+        deleteUser(id: ID!): User!
+
+    }
+
 `;
 
 module.exports = {typeDefs};
