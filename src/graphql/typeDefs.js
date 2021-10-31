@@ -17,6 +17,12 @@ const typeDefs = gql`
         name: String!
     }
 
+    type Board {
+        id: ID!
+        name: String!
+        User : User!
+    }
+
     #inputs
 
     input UserInput {
@@ -30,6 +36,11 @@ const typeDefs = gql`
         name: String!
     }
 
+    input BoardInput {
+        name: String!
+        userId: ID!
+    }
+
     #queries
 
     type Query {
@@ -41,6 +52,10 @@ const typeDefs = gql`
         #statuses
         getAllStatuses: [Status!]!
         getStatusById(id: ID!): Status
+
+        #boards
+        getAllBoards: [Board!]!
+        getBoardById(id: ID!): Board
     }
 
     #mutations

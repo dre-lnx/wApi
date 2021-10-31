@@ -5,7 +5,7 @@ const getAllUsers = async() => {
     const users = await models.User.findAll();
 
     return users;
-}
+};
 
 const getUserById = async(_, { id }) => {
     const user = await models.User.findByPk(id);
@@ -13,13 +13,13 @@ const getUserById = async(_, { id }) => {
     if (!user) throw new UserInputError("Usuário não encontrado!");
 
     return user;
-}
+};
 
 const getAllStatuses = async() => {
     const statuses = await models.Status.findAll();
 
-    return statuses
-}
+    return statuses;
+};
 
 const getStatusById = async(_, { id }) => {
     const status = await models.Status.findByPk(id);
@@ -27,6 +27,26 @@ const getStatusById = async(_, { id }) => {
     if (!status) throw new UserInputError("Status não encontrado!");
 
     return status;
+};
+
+const getAllBoards = async() => {
+    const boards = await models.Board.findAll({	
+        include: [{model: models.User}]
+    });
+
+    console.log(boards);
+
+    return boards;
+};
+
+const getBoardById = async(_, { id }) => {
+    const board = await models.Board.findByPk(id, {
+        include: [{model: models.User}]
+    });
+
+    if (!board) throw new UserInputError("Status não encontrado!");
+
+    return board;
 }
 
 
@@ -44,6 +64,12 @@ const resolvers = {
         },
         getStatusById(_, { id }) {
             return getStatusById(_, { id });
+        },
+        getAllBoards() {
+            return getAllBoards();
+        },
+        getBoardById(_, { id }) {
+            return getBoardById(_, { id });
         },
     },
 };
