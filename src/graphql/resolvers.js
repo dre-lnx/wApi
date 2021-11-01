@@ -17,6 +17,7 @@ import { deleteBoard } from './mutations/boards';
 import { createTask } from './mutations/tasks';
 import { updateTask } from './mutations/tasks';
 import { deleteTask } from './mutations/tasks';
+import { logIn } from './mutations/logIn';
 
 const resolvers = {
     Query: {
@@ -96,6 +97,9 @@ const resolvers = {
         deleteTask(_, { id }) {
             return deleteTask(_, { id });
         },
+        logIn(_, { data }) {
+            return logIn(_, { data });
+        }
     }
 };
 

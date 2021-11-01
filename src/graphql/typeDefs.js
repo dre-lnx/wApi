@@ -4,7 +4,21 @@ const typeDefs = gql`
 
     #types
 
-    type User {
+    interface Login {
+        email: String!
+        pwd: String!
+    }
+
+    type Authentication {
+        token: String!
+    }
+
+    type Authenticate {
+        token: String!
+        user: User!
+    }
+
+    type User implements Login{
         id: ID!
         name: String!
         description: String!
@@ -33,6 +47,11 @@ const typeDefs = gql`
     }
 
     #inputs
+
+    input LoginInput {
+        email: String!
+        pwd: String!
+    }
 
     input UserInput {
         name: String!
@@ -82,6 +101,8 @@ const typeDefs = gql`
     #mutations
 
     type Mutation {
+
+        logIn(data: LoginInput): Authenticate!
 
         #users
         createUser(data: UserInput): User!
