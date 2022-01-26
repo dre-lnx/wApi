@@ -1,130 +1,129 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
+  #types
 
-    #types
+  type Auth {
+    token: String!
+  }
 
-    interface Login {
-        email: String!
-        pwd: String!
-    }
+  type Login {
+    email: String!
+    pwd: String!
+  }
 
-    type Authentication {
-        token: String!
-    }
+  type Authentication {
+    token: String!
+  }
 
-    type Authenticate {
-        token: String!
-        user: User!
-    }
+  type Authenticate {
+    token: String!
+    user: User!
+  }
 
-    type User implements Login{
-        id: ID!
-        name: String!
-        description: String!
-        email: String!
-        pwd: String!
-    }
+  type User implements Login {
+    id: ID!
+    name: String!
+    description: String!
+    email: String!
+    pwd: String!
+  }
 
-    type Status {
-        id: ID!
-        name: String!
-    }
+  type Status {
+    id: ID!
+    name: String!
+  }
 
-    type Board {
-        id: ID!
-        name: String!
-        User: User!
-    }
+  type Board {
+    id: ID!
+    name: String!
+    User: User!
+  }
 
-    type Task {
-        id: ID!
-        name: String!
-        description: String!
-        Status: Status!
-        Board: Board!
-        User: User!
-    }
+  type Task {
+    id: ID!
+    name: String!
+    description: String!
+    Status: Status!
+    Board: Board!
+    User: User!
+  }
 
-    #inputs
+  #inputs
 
-    input LoginInput {
-        email: String!
-        pwd: String!
-    }
+  input LoginInput {
+    email: String!
+    pwd: String!
+  }
 
-    input UserInput {
-        name: String!
-        description: String!
-        email: String!
-        pwd: String!
-    }
+  input UserInput {
+    name: String!
+    description: String!
+    email: String!
+    pwd: String!
+  }
 
-    input StatusInput {
-        name: String!
-    }
+  input StatusInput {
+    name: String!
+  }
 
-    input BoardInput {
-        name: String!
-        userId: ID!
-    }
+  input BoardInput {
+    name: String!
+    userId: ID!
+  }
 
-    input TaskInput {
-        name: String!
-        description: String!
-        statusId: ID!
-        boardId: ID!
-        userId: ID!
-    }
+  input TaskInput {
+    name: String!
+    description: String!
+    statusId: ID!
+    boardId: ID!
+    userId: ID!
+  }
 
-    #queries
+  #queries
 
-    type Query {
+  type Query {
+    #users
+    getAllUsers: [User!]!
+    getUserById(id: ID!): User
 
-        #users
-        getAllUsers: [User!]!
-        getUserById(id: ID!): User
+    #statuses
+    getAllStatuses: [Status!]!
+    getStatusById(id: ID!): Status
 
-        #statuses
-        getAllStatuses: [Status!]!
-        getStatusById(id: ID!): Status
+    #boards
+    getAllBoards: [Board!]!
+    getBoardById(id: ID!): Board
 
-        #boards
-        getAllBoards: [Board!]!
-        getBoardById(id: ID!): Board
+    #tasks
+    getAllTasks: [Task!]!
+    getTaskById(id: ID!): Task
+  }
 
-        #tasks
-        getAllTasks: [Task!]!
-        getTaskById(id: ID!): Task
-    }
+  #mutations
 
-    #mutations
+  type Mutation {
+    logIn(data: LoginInput): Authenticate!
 
-    type Mutation {
+    #users
+    createUser(data: UserInput): User!
+    updateUser(id: ID!, data: UserInput): User!
+    deleteUser(id: ID!): User!
 
-        logIn(data: LoginInput): Authenticate!
+    #status
+    createStatus(data: StatusInput): Status!
+    updateStatus(id: ID!, data: StatusInput): Status!
 
-        #users
-        createUser(data: UserInput): User!
-        updateUser(id: ID!, data: UserInput): User!
-        deleteUser(id: ID!): User!
+    #boards
+    createBoard(data: BoardInput): Board!
+    updateBoard(id: ID!, data: BoardInput): Board!
+    deleteBoard(id: ID!): Board!
 
-        #status
-        createStatus(data: StatusInput): Status!
-        updateStatus(id: ID!, data: StatusInput): Status!
+    #tasks
+    createTask(data: TaskInput): Task!
+    updateTask(id: ID!, data: TaskInput): Task!
+    deleteTask(id: ID!): Task!
+  }
+`
 
-        #boards
-        createBoard(data: BoardInput): Board!
-        updateBoard(id: ID!, data: BoardInput): Board!
-        deleteBoard(id: ID!): Board!
-
-        #tasks
-        createTask(data: TaskInput): Task!
-        updateTask(id: ID!, data: TaskInput): Task!
-        deleteTask(id: ID!): Task!
-
-    }
-
-`;
-
-module.exports = {typeDefs};
+module.exports = { typeDefs }
