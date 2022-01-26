@@ -21,7 +21,7 @@ const typeDefs = gql`
     user: User!
   }
 
-  type User implements Login {
+  type User{
     id: ID!
     name: String!
     description: String!
@@ -58,7 +58,7 @@ const typeDefs = gql`
 
   input UserInput {
     name: String!
-    description: String!
+    description: String
     email: String!
     pwd: String!
   }
