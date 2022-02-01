@@ -98,13 +98,15 @@ const typeDefs = gql`
     #tasks
     getAllTasks: [Task!]!
     getTaskById(id: ID!): Task
+
+    #auth
+    logIn(data: LoginInput): Authenticate!
   }
 
   #mutations
 
   type Mutation {
-    logIn(data: LoginInput): Authenticate!
-
+    
     #users
     createUser(data: UserInput): User!
     updateUser(id: ID!, data: UserInput): User!

@@ -51,6 +51,10 @@ const resolvers = {
         getTaskById(_, { id }) {
             return getTaskById(_, { id });
         },
+
+        logIn(_, { data }) {
+            return logIn(_, { data });
+        }
     },
     Mutation: {
 
@@ -97,9 +101,6 @@ const resolvers = {
         deleteTask(_, { id }) {
             return deleteTask(_, { id });
         },
-        logIn(_, { data }) {
-            return logIn(_, { data });
-        }
     }
 };
 

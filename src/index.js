@@ -37,10 +37,12 @@ async function startApolloServer(typeDefs, resolvers) {
     res.send("Bem-vindo a API wFast");
   })
 
+  const APIport = 4000;
+
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise(resolve => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  await new Promise(resolve => httpServer.listen({ port: APIport }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${APIport}${server.graphqlPath}`);
 }
 
 startApolloServer(typeDefs, resolvers);
