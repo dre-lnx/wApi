@@ -1,10 +1,11 @@
 import { UserInputError } from "apollo-server-express";
 const models = require('../../../models/index');
 const { Op } = require("sequelize");
+const { jsonwebtoken } = require("jsonwebtoken");
 
 export const logIn = async(_,{ data }) => {
 
-
+    accessTokenSecret = "everyLiveCreatureInThisworldDiesAlone";
     
     const findUser = await models.User.findOne({
         where: {
@@ -19,7 +20,8 @@ export const logIn = async(_,{ data }) => {
         console.log("usuario n existe")
         throw new UserInputError("Usuário não encontrado");
     }
-    console.log("usuario existe")
-    return "Usuário existe";
+
+    const token = jwt.sign({mail: data.email}, accessTokenSecret, { expiresIn: '2m' });
+    return token;
 
 }
