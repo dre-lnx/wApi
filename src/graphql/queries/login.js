@@ -21,7 +21,7 @@ export const logIn = async(_,{ data }) => {
         throw new UserInputError("Usuário não encontrado");
     }
 
-    const token = jwt.sign({mail: data.email}, accessTokenSecret, { expiresIn: '2m' });
+    const token = jsonwebtoken.sign({mail: data.email}, accessTokenSecret, { expiresIn: '2m' });
     return token;
 
 }
