@@ -22,3 +22,19 @@ export const getBoardById = async(_, { id }) => {
 
     return board;
 }
+
+export const getUserBoards = async(_, { id }) => {
+    const boards = await models.Board.findAll({
+        include: [
+            {model: models.User}
+        ],
+        where: {
+            userId: id
+        }
+    })
+
+    if (!boards) throw new UserInputError("Usuário sem boards");
+    console.log(boards)
+
+    return boards;
+}

@@ -21,7 +21,7 @@ const typeDefs = gql`
     user: User!
   }
 
-  type User{
+  type User {
     id: ID!
     name: String!
     description: String!
@@ -101,12 +101,17 @@ const typeDefs = gql`
 
     #auth
     logIn(data: LoginInput): Authenticate!
+
+    #user boards
+    getUserBoards(id: ID!): [Board!]!
+
+    #board tasks
+    getBoardTasks(user: ID!, board: ID!): [Task!]!
   }
 
   #mutations
 
   type Mutation {
-    
     #users
     createUser(data: UserInput): User!
     updateUser(id: ID!, data: UserInput): User!
